@@ -1,383 +1,240 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+import React, { useState, useEffect } from 'react';
+import { ChefHat, Clock, Users, Flame, AlertCircle, RefreshCw, Printer } from 'lucide-react';
+
+// --- Sub-Components ---
+
+const Navigation = () => (
+  <nav className="bg-white border-b border-stone-200 sticky top-0 z-10 print:hidden" role="navigation" aria-label="Main">
+    <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-center">
+      <div className="flex items-center gap-2 font-bold text-xl text-orange-600">
+        <ChefHat size={24} aria-hidden="true" />
+        <span>NorthAfricanEats</span>
+      </div>
+    </div>
+  </nav>
+);
+
+const RecipeHeader = ({ servings }) => (
+  <header className="mb-8 md:mb-10 text-center">
+    <span className="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-700 text-[10px] md:text-xs font-bold tracking-wider uppercase mb-4 print:hidden">
+      Algerian Classics
+    </span>
+    <h1 className="text-3xl md:text-5xl font-extrabold text-stone-900 mb-4 tracking-tight print:text-black print:text-3xl">
+      Chakchouka
+    </h1>
+    <p className="text-base md:text-lg text-stone-600 max-w-xl mx-auto leading-relaxed mb-8 print:text-stone-800 print:mb-4">
+      A vibrant, one-pan dish of eggs poached in a simmering sauce of tomatoes, olive oil, peppers, onion, and garlic.
+    </p>
     
-    <!-- SEO: Meta Description -->
-    <meta name="description" content="Master the art of Algerian Chakchouka! A simple, spicy, and healthy one-pan dish made with poached eggs, tomatoes, peppers, and authentic spices. Perfect for breakfast or dinner.">
-    <meta name="author" content="North African Kitchen">
-    
-    <!-- Social Media: Open Graph (Facebook, LinkedIn, etc) -->
-    <meta property="og:title" content="Authentic Algerian Chakchouka Recipe">
-    <meta property="og:description" content="A simple, vibrant, and spicy tomato-based skillet dish. Learn how to make this famous Algerian classic in 30 minutes.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1590412200988-a436970781fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80">
-    <meta property="og:url" content="https://example.com/chakchouka">
-    <meta property="og:type" content="article">
+    <ul className="flex justify-center gap-6 md:gap-8 text-sm font-medium text-stone-500 list-none p-0 print:text-black print:justify-start print:gap-12">
+      <li className="flex items-center gap-2">
+        <Clock size={18} aria-hidden="true" className="print:hidden" />
+        <span className="sr-only">Total time:</span>
+        <span>30 Min</span>
+      </li>
+      <li className="flex items-center gap-2">
+        <Users size={18} aria-hidden="true" className="print:hidden" />
+        <span className="sr-only">Yields:</span>
+        <span>{servings} Servings</span>
+      </li>
+      <li className="flex items-center gap-2">
+        <Flame size={18} aria-hidden="true" className="print:hidden" />
+        <span className="sr-only">Difficulty level:</span>
+        <span>Easy</span>
+      </li>
+    </ul>
+  </header>
+);
 
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Authentic Algerian Chakchouka">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1590412200988-a436970781fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80">
+const HeroImage = () => (
+  <figure className="w-full aspect-video bg-stone-200 rounded-2xl overflow-hidden mb-10 md:mb-12 shadow-lg print:shadow-none print:rounded-none print:mb-6">
+    <img 
+      src="https://images.unsplash.com/photo-1590412200988-a436970781fa?q=80&w=1200&auto=format&fit=crop" 
+      alt="Close up of Chakchouka served in a cast iron skillet with eggs and parsley"
+      loading="lazy" 
+      width="1200"
+      height="675"
+      className="w-full h-full object-cover"
+    />
+  </figure>
+);
 
-    <title>The Art of Chakchouka | Authentic Algerian Recipe</title>
+const IngredientsList = ({ ingredients = [], isDoubled, onToggle }) => {
+  if (!Array.isArray(ingredients) || ingredients.length === 0) return null;
 
-    <!-- Google Structured Data (JSON-LD) for Rich Snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "Recipe",
-      "name": "Authentic Algerian Chakchouka",
-      "image": [
-        "https://images.unsplash.com/photo-1590412200988-a436970781fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-      ],
-      "author": {
-        "@type": "Person",
-        "name": "North African Kitchen"
-      },
-      "datePublished": "2023-10-27",
-      "description": "A simple, vibrant, and spicy tomato-based skillet dish made with poached eggs.",
-      "prepTime": "PT10M",
-      "cookTime": "PT20M",
-      "totalTime": "PT30M",
-      "keywords": "Chakchouka, Shakshouka, Algerian Food, Eggs, Tomato Sauce",
-      "recipeYield": "2 servings",
-      "recipeCategory": "Breakfast",
-      "recipeCuisine": "Algerian",
-      "nutrition": {
-        "@type": "NutritionInformation",
-        "calories": "250 calories"
-      },
-      "recipeIngredient": [
-        "2 tbsp Olive Oil",
-        "1 Onion",
-        "1 Red Bell Pepper",
-        "2 Garlic Cloves",
-        "400g Canned Tomatoes",
-        "1 tsp Cumin",
-        "1 tsp Paprika",
-        "4 Eggs",
-        "Handful Parsley"
-      ],
-      "recipeInstructions": [
-        {
-          "@type": "HowToStep",
-          "name": "Sauté",
-          "text": "Heat the olive oil in a skillet over medium heat. Add the onion and bell pepper. Cook for 5 minutes until the onion becomes translucent."
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Simmer",
-          "text": "Stir in garlic and spices. Pour in the canned tomatoes. Reduce heat and simmer for 10-15 minutes until the sauce thickens."
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Poach",
-          "text": "Use a spoon to make small wells in the sauce. Crack an egg into each well. Cover the pan and cook for 5-8 minutes until eggs are done to your liking."
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Serve",
-          "text": "Garnish with fresh parsley and serve immediately with crusty bread."
-        }
-      ]
-    }
-    </script>
-
-    <style>
-        /* --- CSS: Mobile-First + Accessibility + UX Polish --- */
-        :root {
-            --primary-color: #d9534f;
-            --secondary-color: #5cb85c;
-            --bg-color: #f9f9f9;
-            --text-color: #333;
-            --focus-outline: 3px solid #005fcc;
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --spacing-unit: 20px;
-        }
-
-        /* Animation Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--primary-color);
-            color: white;
-            padding: 8px;
-            z-index: 100;
-            transition: top 0.3s;
-            text-decoration: none;
-            font-weight: bold;
-        }
+  return (
+    <section className="space-y-6" aria-labelledby="ingredients-heading">
+      <div className="flex items-center justify-between border-b border-stone-200 pb-4 print:border-black">
+        <h2 id="ingredients-heading" className="text-xl font-bold text-stone-900 print:text-black">Ingredients</h2>
         
-        .skip-link:focus {
-            top: 0;
-            outline: var(--focus-outline);
-        }
+        <button 
+          onClick={onToggle}
+          className={`
+            px-4 py-2 rounded-lg text-sm font-bold transition-all print:hidden
+            ${isDoubled 
+              ? 'bg-orange-600 text-white shadow-md transform scale-105' 
+              : 'bg-stone-100 text-stone-600 hover:bg-stone-200'}
+          `}
+          aria-pressed={isDoubled}
+          aria-label={isDoubled ? "Scale down to original portion" : "Double the portion size"}
+        >
+          {isDoubled ? 'Scale Down (x1)' : 'Double Up (x2)'}
+        </button>
+      </div>
 
-        .container {
-            max-width: 900px;
-            margin: var(--spacing-unit) auto;
-            background: white;
-            padding: var(--spacing-unit);
-            border-radius: 0; 
-            box-shadow: none;
-            /* Animation applied here */
-            animation: fadeIn 0.8s ease-out;
-        }
+      <ul className="space-y-3">
+        {ingredients.map((ing, idx) => {
+          const amount = isDoubled ? ing.base * 2 : ing.base;
+          return (
+            <li key={idx} className="flex items-start gap-3 py-1 print:py-0.5">
+              <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0 print:bg-black" aria-hidden="true" />
+              <span className="text-stone-700 print:text-black">
+                <strong className="text-stone-900 font-bold print:text-black">
+                  {amount > 0 ? (Number.isInteger(amount) ? amount : amount.toFixed(1)) : ""}
+                </strong> 
+                {" "}{ing.unit !== "to taste" ? ing.unit : ""} {ing.name}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+};
 
-        header {
-            text-align: center;
-            margin-bottom: var(--spacing-unit);
-        }
+const InstructionsList = ({ steps = [] }) => {
+  if (!Array.isArray(steps) || steps.length === 0) return null;
 
-        h1 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
+  return (
+    <section className="space-y-6 md:space-y-8" aria-labelledby="instructions-heading">
+      <h2 id="instructions-heading" className="text-xl font-bold text-stone-900 border-b border-stone-200 pb-4 print:border-black print:text-black">Instructions</h2>
+      <ol className="space-y-6 md:space-y-8 list-none m-0 p-0">
+        {steps.map((step, idx) => (
+          <li key={idx} className="flex gap-4">
+            <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-orange-100 text-orange-600 font-bold text-sm print:bg-stone-100 print:text-black print:border print:border-stone-300" aria-hidden="true">
+              {idx + 1}
+            </span>
+            <p className="text-stone-600 leading-relaxed mt-1 print:text-black">
+              <span className="sr-only">Step {idx + 1}: </span>
+              {step}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+};
 
-        .hero-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: var(--spacing-unit);
-        }
+// --- Main Application ---
 
-        .content-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [recipeData, setRecipeData] = useState({ ingredients: [], steps: [] });
+  const [isDoubled, setIsDoubled] = useState(false);
 
-        h2 {
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .controls {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ffeeba;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        input:focus, a:focus {
-            outline: var(--focus-outline);
-            outline-offset: 2px;
-        }
-
-        .controls input {
-            padding: 10px;
-            width: 80px;
-            font-size: 1.1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        ul.ingredients-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        ul.ingredients-list li {
-            padding: 12px 10px; /* Added horizontal padding for hover effect */
-            border-bottom: 1px solid #eee;
-            border-radius: 4px;
-            transition: background-color 0.2s ease, transform 0.1s ease; /* Micro-interaction */
-        }
-
-        /* Hover effect for mental "check-off" */
-        ul.ingredients-list li:hover {
-            background-color: #ffe8e8; /* Light red tint */
-            cursor: default;
-        }
-
-        span.amount {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        ol.steps-list {
-            padding-left: 20px;
-        }
-        
-        ol.steps-list li {
-            margin-bottom: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                margin: 40px auto;
-                padding: 40px;
-                border-radius: 12px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-image {
-                height: 400px;
-                margin-bottom: 30px;
-            }
-
-            .content-grid {
-                display: grid;
-                grid-template-columns: 1fr 2fr;
-                gap: 40px;
-            }
-
-            .controls {
-                padding: 15px;
-            }
-        }
-
-        /* --- Print Optimization --- */
-        @media print {
-            body {
-                background-color: white;
-                color: black;
-            }
-
-            .container {
-                width: 100%;
-                max-width: 100%;
-                margin: 0;
-                padding: 0;
-                box-shadow: none;
-                border: none;
-            }
-
-            /* Hide elements not needed on paper */
-            .hero-image, 
-            .controls, 
-            .skip-link {
-                display: none !important;
-            }
-
-            h1, h2, span.amount {
-                color: black !important; /* Save colored ink */
-                border-color: #000 !important;
-            }
-
-            h1 {
-                font-size: 24pt;
-                text-align: left;
-            }
-
-            .content-grid {
-                display: block; /* Stack layout for print */
-            }
-
-            aside, main {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-            
-            ul.ingredients-list li {
-                border-bottom: 1px solid #ccc;
-            }
-            
-            /* Ensure text is legible */
-            p, li {
-                font-size: 12pt;
-                line-height: 1.4;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
-<div class="container">
-    <header>
-        <h1>Authentic Algerian Chakchouka</h1>
-        <p>A simple, vibrant, and spicy tomato-based skillet dish.</p>
-    </header>
-
-    <img src="https://images.unsplash.com/photo-1590412200988-a436970781fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Fresh Chakchouka with eggs poached in tomato sauce" class="hero-image">
-
-    <article class="content-grid" id="main-content">
-        <aside aria-labelledby="ingredients-heading">
-            <section class="controls">
-                <label for="servings"><strong>Servings:</strong></label>
-                <input 
-                    type="number" 
-                    id="servings" 
-                    value="2" 
-                    min="1" 
-                    onchange="updateIngredients()"
-                    aria-label="Adjust number of servings to recalculate ingredient amounts"
-                >
-            </section>
-
-            <h2 id="ingredients-heading">Ingredients</h2>
-            <ul class="ingredients-list" aria-live="polite" aria-atomic="true">
-                <li><span class="amount" data-base="2">2</span> tbsp Olive Oil</li>
-                <li><span class="amount" data-base="1">1</span> Onion, chopped</li>
-                <li><span class="amount" data-base="1">1</span> Red Bell Pepper, chopped</li>
-                <li><span class="amount" data-base="2">2</span> Garlic Cloves, minced</li>
-                <li><span class="amount" data-base="400">400</span>g Canned Tomatoes</li>
-                <li><span class="amount" data-base="1">1</span> tsp Cumin</li>
-                <li><span class="amount" data-base="1">1</span> tsp Paprika</li>
-                <li><span class="amount" data-base="4">4</span> Eggs</li>
-                <li><span class="amount" data-base="1">1</span> Handful Parsley</li>
-            </ul>
-        </aside>
-
-        <section aria-labelledby="instructions-heading">
-            <h2 id="instructions-heading">Instructions</h2>
-            <ol class="steps-list">
-                <li><strong>Sauté:</strong> Heat the olive oil in a skillet over medium heat. Add the onion and bell pepper. Cook for 5 minutes until the onion becomes translucent.</li>
-                <li><strong>Simmer:</strong> Stir in garlic and spices. Pour in the canned tomatoes. Reduce heat and simmer for 10-15 minutes until the sauce thickens.</li>
-                <li><strong>Poach:</strong> Use a spoon to make small wells in the sauce. Crack an egg into each well. Cover the pan and cook for 5-8 minutes until eggs are done to your liking.</li>
-                <li><strong>Serve:</strong> Garnish with fresh parsley and serve immediately with crusty bread.</li>
-            </ol>
-        </section>
-    </article>
-</div>
-
-<script>
-    function updateIngredients() {
-        const servingsInput = document.getElementById('servings');
-        let servings = servingsInput.value;
-        if (servings < 1) {
-            servings = 1;
-            servingsInput.value = 1;
-        }
-        const ingredients = document.querySelectorAll('.amount');
-        ingredients.forEach(item => {
-            const baseAmount = parseFloat(item.getAttribute('data-base'));
-            const basePerPerson = baseAmount / 2; 
-            const newAmount = basePerPerson * servings;
-            item.textContent = Number.isInteger(newAmount) ? newAmount : newAmount.toFixed(1);
-        });
+  // SEO & Meta Handling
+  useEffect(() => {
+    document.title = "Authentic Algerian Chakchouka Recipe | NorthAfricanEats";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Learn how to make authentic Algerian Chakchouka with this simple, step-by-step recipe. Perfect for brunch or dinner.");
     }
-</script>
+  }, []);
 
-</body>
-</html>
+  const fetchRecipe = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 800)); // Faster mock load
+      const response = {
+        ingredients: [
+          { name: "Tablespoons Olive Oil", base: 1, unit: "tbsp" },
+          { name: "Medium Onion, chopped", base: 0.5, unit: "pc" },
+          { name: "Bell Pepper (Red or Green), chopped", base: 0.5, unit: "pc" },
+          { name: "Garlic Cloves, minced", base: 1, unit: "clove" },
+          { name: "Large Tomatoes, diced", base: 2, unit: "pc" },
+          { name: "Teaspoon Cumin", base: 0.5, unit: "tsp" },
+          { name: "Teaspoon Paprika", base: 0.5, unit: "tsp" },
+          { name: "Eggs", base: 2, unit: "pc" },
+          { name: "Fresh Parsley or Cilantro", base: 1, unit: "bunch" },
+          { name: "Salt and Pepper", base: 0, unit: "to taste" },
+        ],
+        steps: [
+          "Heat olive oil in a skillet over medium heat. Add onions and peppers; cook until translucent (5 mins).",
+          "Add garlic, cumin, and paprika. Cook for 1 minute until fragrant.",
+          "Pour in tomatoes. Season with salt/pepper. Simmer 10-15 mins until thickened.",
+          "Make wells in sauce; crack eggs into them. Cover and cook 5-8 mins until whites set.",
+          "Garnish with herbs and serve immediately with bread."
+        ]
+      };
+      setRecipeData(response);
+    } catch (err) {
+      setError("We couldn't retrieve the recipe. Please check your connection.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecipe();
+  }, []);
+
+  if (loading) return (
+    <div className="min-h-screen bg-stone-50 flex flex-col items-center justify-center">
+      <RefreshCw className="w-10 h-10 text-orange-500 animate-spin" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen bg-stone-50 flex flex-col items-center justify-center p-6 text-center">
+      <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
+      <h2 className="text-xl font-bold mb-4">{error}</h2>
+      <button onClick={fetchRecipe} className="bg-orange-600 text-white px-6 py-2 rounded-lg font-bold">Retry</button>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-orange-50/30 text-stone-800 font-sans print:bg-white selection:bg-orange-200">
+      <Navigation />
+      
+      <main className="max-w-3xl mx-auto px-5 py-8 md:py-12 print:p-0">
+        <article className="bg-white md:bg-transparent rounded-3xl p-0 md:p-0 shadow-none">
+          <RecipeHeader servings={isDoubled ? 4 : 2} />
+          
+          <div className="relative group">
+            <HeroImage />
+            {/* Print Help Label */}
+            <div className="absolute top-4 right-4 print:hidden opacity-0 group-hover:opacity-100 transition-opacity">
+               <button 
+                onClick={() => window.print()} 
+                className="flex items-center gap-2 bg-white/90 backdrop-blur shadow-sm px-3 py-1.5 rounded-full text-xs font-bold text-stone-600 hover:text-orange-600"
+               >
+                 <Printer size={14} /> Print Recipe
+               </button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16">
+            <IngredientsList 
+              ingredients={recipeData.ingredients} 
+              isDoubled={isDoubled} 
+              onToggle={() => setIsDoubled(!isDoubled)} 
+            />
+            <InstructionsList steps={recipeData.steps} />
+          </div>
+        </article>
+      </main>
+
+      <footer className="text-center py-10 text-stone-400 text-sm border-t border-stone-100 mt-12 print:hidden">
+        <div className="flex justify-center items-center gap-2 mb-2 font-bold text-stone-600">
+          <ChefHat size={18} />
+          <span>NorthAfricanEats</span>
+        </div>
+        <p>&copy; {new Date().getFullYear()} — Authentic Algerian Flavors</p>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
