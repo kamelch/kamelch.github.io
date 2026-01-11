@@ -3,161 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Traditional Algerian Couscous recipe with step-by-step instructions">
-    <title>Algerian Couscous Recipe</title>
+    <meta name="description" content="A traditional recipe for Algerian Chakchouka - poached eggs in a spicy tomato sauce.">
+    <title>Chakchouka | The Taste of Algeria</title>
+    
+    <!-- Google Fonts: Playfair Display (Headings) and Inter (Body) for typography hierarchy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="site-header">
-        <h1>Traditional Algerian Couscous</h1>
-        <p class="tagline">A beloved North African dish, simple yet deeply flavorful</p>
-    </header>
 
-    <main class="main-content">
-        <section class="recipe-intro">
-            <img src="image.png" alt="Bowl of traditional Algerian couscous with vegetables and chickpeas, garnished with fresh herbs" class="recipe-image">
-            
-            <div class="recipe-meta">
-                <div class="meta-item">
-                    <span class="meta-label">Prep Time:</span>
-                    <span class="meta-value">20 minutes</span>
+    <div class="container">
+        <!-- Header -->
+        <header class="site-header">
+            <a href="#" class="logo"> Powercoders Bootcamp</a>
+            <button class="theme-toggle" id="themeBtn" aria-label="Toggle Dark Mode">
+                <!-- Sun/Moon Icon managed by JS or simple text -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </header>
+
+        <main>
+            <!-- Hero -->
+            <section class="hero">
+                <div class="hero-content">
+                    <span class="tag">Traditional Recipe</span>
+                    <h1>Authentic Algerian Chakchouka</h1>
+                    <p class="hero-intro">
+                        A vibrant, one-pan dish of eggs poached in a simmering sauce of tomatoes, olive oil, peppers, onions, and spiced with cumin and paprika. Simple, healthy, and incredibly flavorful.
+                    </p>
                 </div>
-                <div class="meta-item">
-                    <span class="meta-label">Cook Time:</span>
-                    <span class="meta-value">45 minutes</span>
+                
+                <figure class="hero-image-container">
+                    <img 
+                        src="image.png" 
+                        alt="A cast iron pan filled with red tomato sauce and poached eggs, garnished with parsley"
+                        class="hero-image"
+                        loading="eager"
+                    >
+                </figure>
+            </section>
+
+            <!-- Bento Grid Meta Info -->
+            <section class="meta-grid">
+                <div class="meta-card">
+                    <span class="meta-label">Prep Time</span>
+                    <div class="meta-value">15 min</div>
                 </div>
-                <div class="meta-item">
-                    <span class="meta-label">Servings:</span>
-                    <span class="meta-value">6 people</span>
+                <div class="meta-card">
+                    <span class="meta-label">Cook Time</span>
+                    <div class="meta-value">25 min</div>
                 </div>
-            </div>
-        </section>
-
-        <section class="recipe-description">
-            <h2>About This Dish</h2>
-            <p>Couscous is the national dish of Algeria, traditionally served on Fridays and special occasions. This hearty meal combines fluffy semolina granules with a rich vegetable stew, creating a perfect balance of flavors and textures. The beauty of couscous lies in its simplicity and the warmth it brings to family gatherings.</p>
-        </section>
-
-        <section class="ingredients-section">
-            <h2>Ingredients</h2>
-            
-            <div class="ingredient-category">
-                <h3>For the Couscous:</h3>
-                <ul class="ingredient-list">
-                    <li>500g medium-grain couscous</li>
-                    <li>3 tablespoons olive oil</li>
-                    <li>1 teaspoon salt</li>
-                    <li>500ml warm water</li>
-                </ul>
-            </div>
-
-            <div class="ingredient-category">
-                <h3>For the Stew:</h3>
-                <ul class="ingredient-list">
-                    <li>500g lamb or chicken, cut into pieces</li>
-                    <li>3 carrots, peeled and halved</li>
-                    <li>2 zucchini, halved</li>
-                    <li>2 turnips, peeled and quartered</li>
-                    <li>1 can chickpeas, drained</li>
-                    <li>3 tomatoes, quartered</li>
-                    <li>1 large onion, chopped</li>
-                    <li>3 cloves garlic, minced</li>
-                    <li>2 tablespoons tomato paste</li>
-                    <li>1 teaspoon cumin</li>
-                    <li>1 teaspoon paprika</li>
-                    <li>Salt and pepper to taste</li>
-                    <li>Fresh cilantro and parsley</li>
-                    <li>3 tablespoons olive oil</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="instructions-section">
-            <h2>Step-by-Step Instructions</h2>
-            
-            <div class="instruction-step">
-                <button class="step-toggle" aria-expanded="false" aria-controls="step-1-details">
-                    <span class="step-number">Step 1</span>
-                    <span class="step-title">Prepare the Couscous</span>
-                    <span class="toggle-icon" aria-hidden="true">+</span>
-                </button>
-                <div id="step-1-details" class="step-details" hidden>
-                    <p>Place the couscous in a large bowl. Add salt and drizzle with olive oil, mixing with your fingers to coat the grains. Gradually add warm water, stirring gently. Let it rest for 10 minutes to absorb the liquid. Fluff with a fork to separate the grains, then steam in a couscousière or steamer basket for 20 minutes until light and fluffy.</p>
+                <div class="meta-card">
+                    <span class="meta-label">Difficulty</span>
+                    <div class="meta-value">Easy</div>
                 </div>
-            </div>
-
-            <div class="instruction-step">
-                <button class="step-toggle" aria-expanded="false" aria-controls="step-2-details">
-                    <span class="step-number">Step 2</span>
-                    <span class="step-title">Make the Stew Base</span>
-                    <span class="toggle-icon" aria-hidden="true">+</span>
-                </button>
-                <div id="step-2-details" class="step-details" hidden>
-                    <p>Heat olive oil in a large pot over medium heat. Add the chopped onion and cook until softened, about 5 minutes. Add the garlic, cumin, and paprika, stirring for another minute until fragrant. Add the meat pieces and brown them on all sides.</p>
+                <div class="meta-card">
+                    <span class="meta-label">Calories</span>
+                    <div class="meta-value">240 <small>kcal</small></div>
                 </div>
+            </section>
+
+            <div class="recipe-layout">
+                <!-- Left Column: Ingredients & Steps -->
+                <article>
+                    <!-- Ingredients -->
+                    <section class="ingredients">
+                        <div class="ingredients-header">
+                            <h2>Ingredients</h2>
+                            
+                            <!-- INTERACTIVE ELEMENT -->
+                            <div class="servings-control">
+                                <button class="btn-serving" id="decreaseBtn" aria-label="Decrease servings">-</button>
+                                <div id="serving-display">2 Servings</div>
+                                <button class="btn-serving" id="increaseBtn" aria-label="Increase servings">+</button>
+                            </div>
+                        </div>
+
+                        <ul class="ingredient-list" id="ingredientList">
+                            <!-- Items populated by JS for interactivity, but here is static fallback structure -->
+                            <li class="ingredient-item">
+                                <label>
+                                    <input type="checkbox">
+                                    <div class="checkbox-custom"></div>
+                                    <span data-base="1" data-unit="tbsp">1 tbsp Olive Oil</span>
+                                </label>
+                            </li>
+                            <!-- More added via JS -->
+                        </ul>
+                    </section>
+
+                    <hr style="border: 0; border-top: 1px solid var(--color-border); margin: var(--space-lg) 0;">
+
+                    <!-- Instructions -->
+                    <section class="instructions">
+                        <h2>Instructions</h2>
+                        
+                        <div class="instruction-step">
+                            <h3>Prepare the base</h3>
+                            <p>Heat olive oil in a deep skillet or cast iron pan over medium heat. Add the chopped onions and bell peppers. Sauté for about 5-7 minutes until they soften and the onions become translucent.</p>
+                        </div>
+
+                        <div class="instruction-step">
+                            <h3>Spices & Aromatics</h3>
+                            <p>Stir in the minced garlic, cumin, paprika, and a pinch of chili powder if you like heat. Cook for another minute until fragrant.</p>
+                        </div>
+
+                        <div class="instruction-step">
+                            <h3>Simmer the sauce</h3>
+                            <p>Pour in the chopped tomatoes (with juices). Season with salt and pepper. Reduce heat to low and simmer for 10-15 minutes until the sauce thickens slightly.</p>
+                        </div>
+
+                        <div class="instruction-step">
+                            <h3>Poach the eggs</h3>
+                            <p>Use a spoon to make small wells in the sauce. Crack an egg gently into each well. Cover the pan with a lid and cook for 5-8 minutes, or until the whites are set but yolks are still runny.</p>
+                        </div>
+
+                        <div class="instruction-step">
+                            <h3>Garnish & Serve</h3>
+                            <p>Remove from heat. Sprinkle with fresh parsley or cilantro. Serve immediately with crusty bread (Khobz) for dipping.</p>
+                        </div>
+                    </section>
+                </article>
+
+                <!-- Right Column: Nutrition Sidebar -->
+                <aside>
+                    <div class="nutrition-card">
+                        <div class="nutrition-title">Nutrition Facts</div>
+                        <p class="nutrition-subtext">Per Serving (calculated based on recipe)</p>
+                        
+                        <div class="nutrition-row">
+                            <span>Calories</span>
+                            <strong>240</strong>
+                        </div>
+                        <div class="nutrition-row">
+                            <span>Total Fat</span>
+                            <strong>14g</strong>
+                        </div>
+                        <div class="nutrition-row">
+                            <span style="padding-left: 10px; font-size: 0.8em">Saturated Fat</span>
+                            <span>3g</span>
+                        </div>
+                        <div class="nutrition-row">
+                            <span>Cholesterol</span>
+                            <strong>186mg</strong>
+                        </div>
+                        <div class="nutrition-row">
+                            <span>Sodium</span>
+                            <strong>420mg</strong>
+                        </div>
+                        <div class="nutrition-row">
+                            <span>Total Carbohydrates</span>
+                            <strong>18g</strong>
+                        </div>
+                        <div class="nutrition-row">
+                            <span style="padding-left: 10px; font-size: 0.8em">Dietary Fiber</span>
+                            <span>4g</span>
+                        </div>
+                        <div class="nutrition-row">
+                            <span style="padding-left: 10px; font-size: 0.8em">Sugars</span>
+                            <span>9g</span>
+                        </div>
+                        <div class="nutrition-row">
+                            <span>Protein</span>
+                            <strong>12g</strong>
+                        </div>
+                    </div>
+                </aside>
             </div>
+        </main>
 
-            <div class="instruction-step">
-                <button class="step-toggle" aria-expanded="false" aria-controls="step-3-details">
-                    <span class="step-number">Step 3</span>
-                    <span class="step-title">Add Vegetables and Simmer</span>
-                    <span class="toggle-icon" aria-hidden="true">+</span>
-                </button>
-                <div id="step-3-details" class="step-details" hidden>
-                    <p>Stir in the tomato paste, then add all the vegetables: carrots, turnips, zucchini, and tomatoes. Add the chickpeas and enough water to cover everything. Season with salt and pepper. Bring to a boil, then reduce heat and simmer for 30-35 minutes until the vegetables are tender and the meat is cooked through.</p>
-                </div>
-            </div>
-
-            <div class="instruction-step">
-                <button class="step-toggle" aria-expanded="false" aria-controls="step-4-details">
-                    <span class="step-number">Step 4</span>
-                    <span class="step-title">Serve and Garnish</span>
-                    <span class="toggle-icon" aria-hidden="true">+</span>
-                </button>
-                <div id="step-4-details" class="step-details" hidden>
-                    <p>Mound the fluffy couscous on a large serving platter. Arrange the meat and vegetables on top, then ladle some of the flavorful broth over everything. Garnish generously with fresh cilantro and parsley. Serve hot with extra broth on the side and enjoy this comforting Algerian classic with family and friends.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="tips-section">
-            <h2>Chef's Tips</h2>
-            <p>For the most authentic flavor, use a traditional couscousière (a special two-tiered pot) to steam the couscous over the simmering stew. The couscous absorbs the aromatic steam, making it even more flavorful. If you don't have one, a regular steamer works perfectly well.</p>
-            <p>Traditional Algerian couscous is often served with a spicy harissa sauce on the side for those who enjoy extra heat. You can also add raisins and caramelized onions for a sweet and savory variation.</p>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <p>Enjoy this taste of Algeria! Share this recipe with loved ones and keep the tradition alive.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2025 Powercoders Bootcamp </p>
+        </footer>
+    </div>
 
     <script>
-        // Interactive accordion functionality for recipe steps
-        const stepToggles = document.querySelectorAll('.step-toggle');
-        
-        stepToggles.forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const details = this.nextElementSibling;
-                const icon = this.querySelector('.toggle-icon');
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                
-                // Toggle the current step
-                this.setAttribute('aria-expanded', !isExpanded);
-                details.hidden = isExpanded;
-                icon.textContent = isExpanded ? '+' : '−';
-                
-                // Add active class for styling
-                this.classList.toggle('active');
-            });
+        // --- 1. DATA MODEL ---
+        const ingredientsData = [
+            { amount: 1, unit: "tbsp", name: "Olive Oil" },
+            { amount: 0.5, unit: "large", name: "Onion, chopped" },
+            { amount: 1, unit: "medium", name: "Red Bell Pepper, chopped" },
+            { amount: 2, unit: "cloves", name: "Garlic, minced" },
+            { amount: 1, unit: "tsp", name: "Ground Cumin" },
+            { amount: 1, unit: "tsp", name: "Paprika" },
+            { amount: 400, unit: "g", name: "Canned Chopped Tomatoes" },
+            { amount: 2, unit: "large", name: "Eggs" },
+            { amount: 0.25, unit: "cup", name: "Fresh Parsley, chopped" },
+            { amount: 0, unit: "", name: "Salt and Pepper to taste" } // 0 allows logic to handle "to taste"
+        ];
+
+        let currentServings = 2;
+        const baseServings = 2; // The recipe data is based on 2 servings
+
+        // --- 2. DOM ELEMENTS ---
+        const servingDisplay = document.getElementById('serving-display');
+        const increaseBtn = document.getElementById('increaseBtn');
+        const decreaseBtn = document.getElementById('decreaseBtn');
+        const listContainer = document.getElementById('ingredientList');
+        const themeBtn = document.getElementById('themeBtn');
+
+        // --- 3. FUNCTIONS ---
+
+        function formatAmount(amount) {
+            if (amount === 0) return "";
+            // Handle decimals neatly (e.g. 0.5 -> 1/2 in a real app, but here simple fixed)
+            return Number.isInteger(amount) ? amount : amount.toFixed(1).replace('.0', '');
+        }
+
+        function renderIngredients() {
+            listContainer.innerHTML = '';
             
-            // Keyboard accessibility
-            toggle.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
+            const multiplier = currentServings / baseServings;
+
+            ingredientsData.forEach((item, index) => {
+                const newAmount = item.amount * multiplier;
+                const displayAmount = formatAmount(newAmount);
+                const displayText = displayAmount ? `${displayAmount} ${item.unit} ${item.name}` : item.name;
+
+                const li = document.createElement('li');
+                li.className = 'ingredient-item';
+                li.innerHTML = `
+                    <label style="display:flex; align-items:center; cursor:pointer; width:100%">
+                        <input type="checkbox" id="ing-${index}">
+                        <div class="checkbox-custom"></div>
+                        <span>${displayText}</span>
+                    </label>
+                `;
+                listContainer.appendChild(li);
             });
-        });
+        }
+
+        function updateServings(change) {
+            const newCount = currentServings + change;
+            if (newCount < 1 || newCount > 12) return; // Limits
+            
+            currentServings = newCount;
+            servingDisplay.textContent = `${currentServings} Servings`;
+            
+            // Add a small animation effect to the number
+            servingDisplay.style.transform = "scale(1.1)";
+            setTimeout(() => servingDisplay.style.transform = "scale(1)", 150);
+
+            renderIngredients();
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.getAttribute('data-theme') === 'dark';
+            
+            if (isDark) {
+                body.removeAttribute('data-theme');
+                // Change icon to Moon
+                themeBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                // Change icon to Sun
+                themeBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+            }
+        }
+
+        // --- 4. EVENT LISTENERS ---
+        increaseBtn.addEventListener('click', () => updateServings(1));
+        decreaseBtn.addEventListener('click', () => updateServings(-1));
+        themeBtn.addEventListener('click', toggleTheme);
+
+        // --- 5. INITIALIZATION ---
+        renderIngredients();
+        // Set initial icon for theme toggle (Moon for "switch to dark")
+        themeBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+
     </script>
 </body>
 </html>
