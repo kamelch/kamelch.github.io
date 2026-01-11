@@ -1,0 +1,410 @@
+/* --- 1. CSS VARIABLES & THEME --- */
+:root {
+/* Palette: Earthy, Spicy Tones */
+--color-primary: #D35400; /* Burnt Orange */
+--color-primary-dark: #A04000;
+--color-secondary: #2C3E50; /* Deep Blue/Gray for text */
+--color-bg: #FAFAFA; /* Off-white background */
+--color-surface: #FFFFFF; /* Card background */
+--color-accent: #27AE60; /* Fresh Herb Green */
+--color-border: #E5E7EB;
+
+/* Spacing (8pt Grid) */
+--space-xs: 0.5rem;  /* 8px */
+--space-sm: 1rem;    /* 16px */
+--space-md: 1.5rem;  /* 24px */
+--space-lg: 2rem;    /* 32px */
+--space-xl: 4rem;    /* 64px */
+
+/* Typography */
+--font-heading: 'Playfair Display', serif;
+--font-body: 'Inter', sans-serif;
+
+/* UI Elements */
+--radius-md: 12px;
+--radius-lg: 24px;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+--shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+--shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+/* Dark Mode Override */
+[data-theme="dark"] {
+--color-bg: #111827;
+--color-surface: #1F2937;
+--color-secondary: #F3F4F6;
+--color-border: #374151;
+--shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* --- 2. RESET & BASE --- */
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: var(--font-body);
+background-color: var(--color-bg);
+color: var(--color-secondary);
+line-height: 1.6;
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img {
+max-width: 100%;
+height: auto;
+display: block;
+}
+
+h1, h2, h3 {
+font-family: var(--font-heading);
+line-height: 1.2;
+color: var(--color-primary);
+}
+
+button {
+cursor: pointer;
+font-family: inherit;
+}
+
+/* --- 3. LAYOUT & CONTAINERS --- */
+.container {
+width: 100%;
+max-width: 1000px;
+margin: 0 auto;
+padding: 0 var(--space-sm);
+}
+
+/* --- 4. HEADER --- */
+.site-header {
+padding: var(--space-md) 0;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid var(--color-border);
+margin-bottom: var(--space-lg);
+}
+
+.logo {
+font-size: 1.5rem;
+font-weight: 700;
+color: var(---color-secondary);
+text-decoration: none;
+}
+
+.theme-toggle {
+background: none;
+border: 1px solid var(--color-border);
+padding: 0.5rem;
+border-radius: 50%;
+color: var(--color-secondary);
+transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+background-color: var(--color-border);
+}
+
+/* --- 5. HERO SECTION --- */
+.hero {
+display: grid;
+gap: var(--space-lg);
+margin-bottom: var(--space-xl);
+}
+
+.hero-content h1 {
+font-size: clamp(2.5rem, 5vw, 4rem);
+margin-bottom: var(--space-sm);
+}
+
+.hero-intro {
+font-size: 1.125rem;
+max-width: 65ch;
+color: var(--color-secondary);
+opacity: 0.9;
+}
+
+/* The Main Image with Artistic Border Radius */
+.hero-image-container {
+width: 100%;
+/* AUDIT FIX: Use relative units/clamping instead of fixed height for better mobile responsiveness */
+height: clamp(350px, 60vh, 550px);
+border-radius: var(--radius-lg);
+overflow: hidden;
+box-shadow: var(--shadow-lg);
+position: relative;
+}
+
+.hero-image {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+transform: scale(1.02);
+}
+
+/* --- 6. BENTO GRID (META INFO) --- */
+.meta-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+gap: var(--space-sm);
+margin-bottom: var(--space-lg);
+}
+
+.meta-card {
+background-color: var(--color-surface);
+padding: var(--space-md);
+border-radius: var(--radius-md);
+box-shadow: var(--shadow-sm);
+text-align: center;
+border: 1px solid var(--color-border);
+transition: transform 0.2s;
+}
+
+.meta-card:hover {
+transform: translateY(-2px);
+box-shadow: var(--shadow-md);
+}
+
+.meta-label {
+display: block;
+font-size: 0.875rem;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--color-primary);
+margin-bottom: 0.25rem;
+font-weight: 600;
+}
+
+.meta-value {
+font-size: 1.25rem;
+font-weight: 700;
+}
+
+/* --- 7. MAIN RECIPE CONTENT --- */
+.recipe-layout {
+display: grid;
+grid-template-columns: 1fr;
+gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+.recipe-layout {
+    grid-template-columns: 1fr 350px; /* Main content left, Sticky sidebar right */
+}
+}
+
+/* Ingredients Section */
+.ingredients-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: var(--space-md);
+flex-wrap: wrap;
+gap: var(--space-sm);
+}
+
+/* INTERACTIVE ELEMENT: Servings Control */
+.servings-control {
+display: inline-flex;
+align-items: center;
+background: var(--color-surface);
+border: 1px solid var(--color-border);
+border-radius: var(--radius-md);
+padding: 0.25rem;
+}
+
+.btn-serving {
+background: none;
+border: none;
+width: 32px;
+height: 32px;
+border-radius: 8px;
+font-weight: bold;
+font-size: 1.2rem;
+color: var(--color-secondary);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.btn-serving:hover {
+background-color: var(--color-border);
+}
+
+.btn-serving:focus-visible {
+outline: 2px solid var(--color-primary);
+}
+
+#serving-display {
+padding: 0 var(--space-sm);
+font-weight: 600;
+min-width: 80px;
+text-align: center;
+}
+
+.ingredient-list {
+list-style: none;
+}
+
+.ingredient-item {
+padding: var(--space-sm) 0;
+border-bottom: 1px solid var(--color-border);
+display: flex;
+gap: var(--space-sm);
+align-items: center;
+}
+
+.checkbox-custom {
+width: 20px;
+height: 20px;
+border: 2px solid var(--color-primary);
+border-radius: 4px;
+cursor: pointer;
+display: grid;
+place-content: center;
+flex-shrink: 0;
+margin-right: 12px;
+}
+
+/* AUDIT FIX: Accessibility - Visually hidden instead of display:none */
+input[type="checkbox"] {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border-width: 0;
+}
+
+/* Focus state for keyboard navigation */
+input[type="checkbox"]:focus-visible + .checkbox-custom {
+outline: 2px solid var(--color-primary);
+outline-offset: 2px;
+box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.2);
+}
+
+input[type="checkbox"]:checked + .checkbox-custom {
+background-color: var(--color-primary);
+}
+
+input[type="checkbox"]:checked + .checkbox-custom::after {
+content: "✓";
+color: white;
+font-size: 12px;
+}
+
+input[type="checkbox"]:checked ~ span {
+text-decoration: line-through;
+opacity: 0.6;
+}
+
+/* Instructions */
+.instructions {
+counter-reset: step;
+}
+
+.instruction-step {
+margin-bottom: var(--space-lg);
+position: relative;
+padding-left: var(--space-xl);
+}
+
+.instruction-step::before {
+counter-increment: step;
+content: counter(step);
+position: absolute;
+left: 0;
+top: 0;
+width: 40px;
+height: 40px;
+background-color: var(--color-surface);
+border: 2px solid var(--color-primary);
+color: var(--color-primary);
+border-radius: 50%;
+text-align: center;
+line-height: 36px;
+font-weight: 700;
+font-family: var(--font-heading);
+}
+
+/* --- 8. NUTRITION CARD (Sidebar) --- */
+.nutrition-card {
+background-color: var(--color-surface);
+padding: var(--space-lg);
+border-radius: var(--radius-md);
+border: 1px solid var(--color-border);
+box-shadow: var(--shadow-md);
+position: sticky;
+top: 2rem;
+align-self: start;
+}
+
+.nutrition-title {
+font-size: 1.25rem;
+border-bottom: 2px solid var(--color-primary);
+padding-bottom: var(--space-xs);
+margin-bottom: var(--space-md);
+}
+
+.nutrition-row {
+display: flex;
+justify-content: space-between;
+padding: var(--space-xs) 0;
+border-bottom: 1px solid var(--color-border);
+font-size: 0.9rem;
+}
+
+.nutrition-row:last-child {
+border-bottom: none;
+}
+
+.nutrition-row strong {
+font-weight: 600;
+}
+
+/* AUDIT FIX: Use variable for consistent theming/opacity instead of hardcoded hex */
+.nutrition-subtext {
+font-size: 0.8rem;
+margin-bottom: 1rem;
+color: var(--color-secondary);
+opacity: 0.8;
+}
+
+/* --- 9. FOOTER --- */
+footer {
+margin-top: var(--space-xl);
+padding: var(--space-lg) 0;
+text-align: center;
+color: var(--color-secondary);
+font-size: 0.9rem;
+border-top: 1px solid var(--color-border);
+opacity: 0.8;
+}
+
+/* Utility */
+.tag {
+display: inline-block;
+background-color: #FEF3C7;
+color: #92400E;
+padding: 4px 8px;
+border-radius: 4px;
+font-size: 0.75rem;
+font-weight: 600;
+margin-bottom: var(--space-xs);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+.meta-grid {
+    grid-template-columns: 1fr 1fr;
+}
+}
